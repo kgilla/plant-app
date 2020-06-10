@@ -1,0 +1,9 @@
+extends layout
+
+block content
+  h1= title
+  a(href=plant.catagory.url)= plant.catagory.name
+
+  p= plant.description
+
+  p $#{plant.price} (#{plant.stock} left!)

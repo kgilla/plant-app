@@ -1,0 +1,10 @@
+extends layout
+
+block content
+  h1= title
+
+  each plant in plant_list
+    div
+      a(href=plant.url) #{plant.name}
+      p= plant.description
+

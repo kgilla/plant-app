@@ -1,0 +1,20 @@
+doctype html
+html
+  head
+    title= title
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+  body
+    nav
+      div(class="main-header")
+        h1(class="main-heading") Plantarama
+      div(class="nav-links")
+        div(class="left-nav-links")
+          a(href="/plants" class="nav-link") All Plants
+          a(href="/catagories" class="nav-link") Plant Catagories
+        div(class="right-nav-links")
+          a(href="/plant/create" class="nav-link") Add Plant
+          a(href="/catagory/create" class="nav-link") Add Catagory
+    div(class="main-content")
+      block content

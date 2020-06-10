@@ -1,0 +1,10 @@
+extends layout
+
+block content
+  h1 #{title}
+
+  each plant in plants
+    div 
+      a(href=plant.url) #{plant.name}
+      p= plant.description
+      p $#{plant.price}, (#{plant.stock} left!)
