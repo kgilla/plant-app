@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  h1= title
+  form(action="" method="POST")
+    div(class="form-group")
+      label(for="name") Catagory Name
+      input(type="text" name="name" required="true" value=(undefined===catagory ? '' : catagory.name))
+    button(type="submit") Add Catagory
+    
+  if errors 
+    ul
+      for error in errors
+        li!= error.msg

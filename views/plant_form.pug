@@ -5,20 +5,30 @@ block content
   form(action="" method="POST")
     div(class="form-group")
       label(for="name") Plant Name
-      input(type="text" name="name")
+      input(type="text" name="name" required="true" value=(undefined===plant ? '' : plant.name))
     div(class="form-group")
       label(for="description") Description
-      textarea(name="description", cols="30", rows="10")
+      textarea(name="description", cols="30", rows="10" required="true")= (undefined===plant ? '' : plant.description)
     div(class="form-group")
       label(for="catagory") Plant Catagory
       select(name="catagory")
         each catagory in catagories
-          option(value=catagory.name)= catagory.name
+          if plant === undefined
+            option(value=catagory.id)= catagory.name
+          else
+            if catagory.name === plant.catagory.name
+              option(value=catagory.id selected="selected")= catagory.name
+            else  
+              option(value=catagory.id)= catagory.name
     div(class="form-group")
       label(for="price") Price
-      input(type="text" name="price")
+      input(type="text" name="price" value=(undefined===plant ? '' : plant.price))
     div(class="form-group")
       label(for="stock") Current Stock
-      input(type="text" name="stock")
-    button(type="submit") Create Plant
+      input(type="text" name="stock" value=(undefined===plant ? '' : plant.stock))
+    button(type="submit")= button
     
+  if errors 
+    ul
+      for error in errors
+        li!= error.msg

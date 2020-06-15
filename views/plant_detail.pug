@@ -7,3 +7,14 @@ block content
   p= plant.description
 
   p $#{plant.price} (#{plant.stock} left!)
+
+  if delete_plant === undefined
+    a(href=plant.url+"/update") Edit Plant
+    a(href=plant.url+"/delete") Delete Plant
+  else
+    form(action="" method="POST")
+      label(for="delete") Delete #{plant.name}?
+      a(href=plant.url) No I Need This Plant!
+      button(type="submit") Really Delete?
+
+
