@@ -109,7 +109,12 @@ exports.plant_delete_get = async function (req, res) {
 
 // Handle plant delete on POST.
 exports.plant_delete_post = function (req, res) {
-  res.send("NOT IMPLEMENTED: plant delete POST");
+  Plant.findByIdAndRemove(req.params.id, function deletePlant(err) {
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/plants");
+  });
 };
 
 // Display plant update form on GET.
