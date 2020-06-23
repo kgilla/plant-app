@@ -8,6 +8,7 @@ const PlantSchema = new Schema({
   catagory: { type: Schema.Types.ObjectId, ref: "Catagory", required: true },
   price: { type: Number, required: true },
   stock: { type: Number, required: true },
+  image: { type: String },
 });
 
 PlantSchema.virtual("url").get(function () {

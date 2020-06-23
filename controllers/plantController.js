@@ -159,6 +159,7 @@ exports.plant_update_post = [
       catagory: req.body.catagory,
       price: req.body.price,
       stock: req.body.stock,
+      image: req.file.filename,
       _id: req.params.id,
     });
 

@@ -1,20 +1,29 @@
 extends layout
 
 block content
-  h1= title
-  a(href=plant.catagory.url)= plant.catagory.name
 
-  p= plant.description
+  div(class="plant-detail-box")
 
-  p $#{plant.price} (#{plant.stock} left!)
+    h1(class="sub-title")= title
+    a(href=plant.catagory.url)= plant.catagory.name
 
-  if delete_plant === undefined
-    a(href=plant.url+"/update") Edit Plant
-    a(href=plant.url+"/delete") Delete Plant
-  else
-    form(action="" method="POST")
-      label(for="delete") Delete #{plant.name}?
-      a(href=plant.url) No I Need This Plant!
-      button(type="submit") Really Delete?
+    if plant.image
+      img(src=`/images/${plant.image}`)
+    else
+      img(src='/images/stock-plant.jpg')
+              
+    p(class="plant-description")= plant.description
+
+    p $#{plant.price} (#{plant.stock} left!)
+
+    if delete_plant === undefined
+      div(class="button-box")
+        a(href=plant.url+"/update" class="update-plant") Edit Plant
+        a(href=plant.url+"/delete" class="delete-plant") Delete Plant
+    else
+      form(action="" method="POST")
+        label(for="delete") Delete #{plant.name}?
+        a(href=plant.url) No I Need This Plant!
+        button(type="submit") Really Delete?
 
 

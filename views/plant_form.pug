@@ -2,7 +2,7 @@ extends layout
 
 block content
   h1= title
-  form(action="" method="POST")
+  form(action="" method="POST" enctype="multipart/form-data")
     div(class="form-group")
       label(for="name") Plant Name
       input(type="text" name="name" required="true" value=(undefined===plant ? '' : plant.name))
@@ -26,6 +26,9 @@ block content
     div(class="form-group")
       label(for="stock") Current Stock
       input(type="text" name="stock" value=(undefined===plant ? '' : plant.stock))
+    div(class="form-group")
+      label(for="image") Add An Image
+      input(type="file" name="image")
     button(type="submit")= button
     
   if errors 
