@@ -14,12 +14,12 @@ block content
               
     p(class="plant-description")= plant.description
 
-    p $#{plant.price} (#{plant.stock} left!)
+    p(class="plant-stock") $#{plant.price} (#{plant.stock} left!)
 
     if delete_plant === undefined
       div(class="button-box")
-        a(href=plant.url+"/update" class="update-plant") Edit Plant
-        a(href=plant.url+"/delete" class="delete-plant") Delete Plant
+        a(href=plant.url+"/update" class="update-link") Edit Plant
+        a(href=plant.url+"/delete" class="delete-link") Delete Plant
     else
       form(action="" method="POST")
         label(for="delete") Delete #{plant.name}?

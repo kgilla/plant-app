@@ -11,7 +11,8 @@ block content
             img(src=`/images/${plant.image}`)
           else
             img(src='/images/stock-plant.jpg')
-          h2(class="plant-name")= plant.name
-          p(class="plant-details")= plant.description.slice(0, 180) + "..."
+        h2(class="plant-name")= plant.name
+        p(class="plant-details")= plant.description.slice(0, 180) + "..."
+        a(href=plant.url class="link") Learn More
 
 

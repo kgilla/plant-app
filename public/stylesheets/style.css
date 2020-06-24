@@ -10,13 +10,20 @@ html {
 }
 
 body {
+  background: url(../images/leaves-pattern.png);
   margin: 0;
+  line-height: 1.5;
   font-family: "Montserrat", sans-serif;
 }
 
 a {
   color: #000;
   text-decoration: none;
+}
+
+.link {
+  color: #3498db;
+  padding: 0.5rem 0;
 }
 
 nav {
@@ -64,12 +71,19 @@ nav {
 }
 
 .main-content {
-  padding: 2rem 7rem;
+  padding: 2rem 10rem;
+}
+
+.title-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 1rem;
 }
 
 .sub-title {
-  font-size: 1.4rem;
-  padding: 1rem 0;
+  font-size: 1.5rem;
+  padding: 1rem 2rem;
   font-weight: bold;
 }
 
@@ -78,26 +92,33 @@ nav {
 .plant-collection {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  grid-gap: 1rem;
 }
 
 .plant-box {
+  height: auto;
   padding: 1rem;
+  background: #fff;
+  border: 0.1rem solid #ccc;
+  border-radius: 0.5rem;
 }
 
 .plant-name {
   font-size: 1.2rem;
   font-weight: bold;
-  padding: 1rem 0;
+  padding: 0.5rem 0;
 }
 
-.plant-description {
+.plant-details {
+  padding-bottom: 0.5rem;
 }
 
 .plant-box img {
   width: 100%;
-  height: 300px;
+  height: 200px;
   object-position: center;
   object-fit: cover;
+  border-radius: 0.5rem;
 }
 
 /* plant details */
@@ -107,17 +128,25 @@ nav {
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
-  padding: 0 5rem;
+  padding: 1rem;
+  background: #fff;
+  border: 0.1rem solid #ccc;
+  border-radius: 0.5rem;
 }
 
 .plant-detail-box img {
   height: auto;
-  width: 90%;
-  padding: 2rem;
+  width: 100%;
+  padding: 1rem 0;
 }
 
 .plant-description {
   padding: 1rem;
+  line-height: 1.5;
+}
+
+.plant-stock {
+  font-size: 1.2rem;
 }
 
 .button-box {
@@ -125,8 +154,8 @@ nav {
   margin: 1rem;
 }
 
-.update-plant,
-.delete-plant {
+.update-link,
+.delete-link {
   padding: 1rem;
   margin: 0 2rem;
   border: 0.1rem solid #aaa;
@@ -134,11 +163,16 @@ nav {
   color: #fff;
 }
 
-.update-plant {
+.update-link:hover,
+.delete-link:hover {
+  filter: brightness(90%);
+}
+
+.update-link {
   background: #999;
 }
 
-.delete-plant {
+.delete-link {
   background: #e53935;
 }
 
@@ -149,8 +183,10 @@ form {
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  padding: 2rem;
-  border: 1px solid #000;
+  padding: 1rem;
+  border: 0.1rem solid #ccc;
+  border-radius: 0.5rem;
+  background: #fff;
 }
 
 .form-group {
@@ -158,11 +194,65 @@ form {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 1rem;
+  padding: 0.5rem;
+}
+
+label {
+  padding: 0.5rem;
+  font-size: 1rem;
+}
+
+input,
+select,
+textarea {
+  font-size: 1rem;
+  padding: 0.5rem;
+  border: 0.1rem solid #ccc;
+  border-radius: 0.5rem;
 }
 
 form button {
   width: 80%;
   padding: 0.5rem;
+  margin-top: 1rem;
+  border: solid 0.1rem #ccc;
+  border-radius: 0.5rem;
+  background: #229954;
+  color: #fff;
   font-size: 1rem;
+}
+
+form button:hover {
+  filter: brightness(90%);
+}
+
+.thumbnail {
+  width: 200px;
+  height: auto;
+  object-position: center;
+  object-fit: cover;
+  border-radius: 0.5rem;
+}
+
+/* Catagory Index */
+
+.catagory-link-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.catagory-link {
+  width: 50%;
+  padding: 1rem;
+  margin: 0.5rem;
+  font-size: 1.2rem;
+  border: 0.1rem solid #1e8449;
+  border-radius: 0.5rem;
+  background: #fff;
+}
+
+.catagory-link:hover {
+  filter: brightness(90%);
 }

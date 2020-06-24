@@ -1,13 +1,22 @@
 extends layout
 
 block content
-  h1 #{title}
 
-  each plant in plants
-    div 
-      a(href=plant.url) #{plant.name}
-      p= plant.description
-      p $#{plant.price}, (#{plant.stock} left!)
+  div(class="title-box")
+    h1(class="sub-title")= title
 
-  a(href=catagory.url+"/update") Edit Catagory
+    a(href=catagory.url+"/update" class="update-link") Edit Catagory
+
+  div(class="plant-collection")
+    each plant in plants
+      div(class="plant-box")
+        a(href=plant.url)
+          if plant.image
+            img(src=`/images/${plant.image}`)
+          else
+            img(src='/images/stock-plant.jpg')
+          h2(class="plant-name")= plant.name
+          p(class="plant-details")= plant.description.slice(0, 180) + "..."
+
+
 

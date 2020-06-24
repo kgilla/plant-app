@@ -1,9 +1,11 @@
 extends layout
 
 block content
-  h1= title
-
-  each catagory in catagory_list
-    div
-      a(href=catagory.url) #{catagory.name}
+  
+  div(class="catagory-link-box")
+    
+    h1(class="sub-title")= title
+    
+    each catagory in catagory_list
+      a(href=catagory.url class="catagory-link") #{catagory.name}
 

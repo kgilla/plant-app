@@ -1,8 +1,8 @@
 extends layout
 
 block content
-  h1= title
   form(action="" method="POST" enctype="multipart/form-data")
+    h1(class="sub-title")= title
     div(class="form-group")
       label(for="name") Plant Name
       input(type="text" name="name" required="true" value=(undefined===plant ? '' : plant.name))
@@ -28,9 +28,11 @@ block content
       input(type="text" name="stock" value=(undefined===plant ? '' : plant.stock))
     div(class="form-group")
       label(for="image") Add An Image
-      input(type="file" name="image")
+      if plant
+        h3 current image:
+        img(src=`/images/${plant.image}` class="thumbnail")  
+      input(type="file" name="image" accept="image/png, image/jpeg" value=)
     button(type="submit")= button
-    
   if errors 
     ul
       for error in errors

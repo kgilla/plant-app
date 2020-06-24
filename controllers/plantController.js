@@ -150,8 +150,16 @@ exports.plant_update_post = [
   sanitizeBody("name").trim().escape(),
   sanitizeBody("description").trim().escape(),
 
-  (req, res, next) => {
+  async (req, res, next) => {
     const errors = validationResult(req);
+    let plantImage = "";
+    const savedPlant = await Plant.findById(req.params.id);
+
+    if (savedPlant.image) {
+      plantImage = savedPlant.image;
+    } else {
+      plantImage = req.file.filename;
+    }
 
     let plant = new Plant({
       name: req.body.name,
@@ -159,7 +167,7 @@ exports.plant_update_post = [
       catagory: req.body.catagory,
       price: req.body.price,
       stock: req.body.stock,
-      image: req.file.filename,
+      image: plantImage,
       _id: req.params.id,
     });
 
