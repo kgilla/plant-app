@@ -19,7 +19,7 @@ const upload = multer({
 }).single("image");
 
 const plant_controller = require("../controllers/plantController");
-const catagory_controller = require("../controllers/catagoryController");
+const category_controller = require("../controllers/categoryController");
 
 // Home
 router.get("/", plant_controller.home);
@@ -34,14 +34,14 @@ router.post("/plant/:id/update", upload, plant_controller.plant_update_post);
 router.get("/plant/:id", plant_controller.plant_detail);
 router.get("/plants", plant_controller.plant_list);
 
-/// catagory ROUTES ///
-router.get("/catagory/create", catagory_controller.catagory_create_get);
-router.post("/catagory/create", catagory_controller.catagory_create_post);
-router.get("/catagory/:id/delete", catagory_controller.catagory_delete_get);
-router.post("/catagory/:id/delete", catagory_controller.catagory_delete_post);
-router.get("/catagory/:id/update", catagory_controller.catagory_update_get);
-router.post("/catagory/:id/update", catagory_controller.catagory_update_post);
-router.get("/catagory/:id", catagory_controller.catagory_detail);
-router.get("/catagories", catagory_controller.catagory_list);
+/// category ROUTES ///
+router.get("/category/create", category_controller.category_create_get);
+router.post("/category/create", category_controller.category_create_post);
+router.get("/category/:id/delete", category_controller.category_delete_get);
+router.post("/category/:id/delete", category_controller.category_delete_post);
+router.get("/category/:id/update", category_controller.category_update_get);
+router.post("/category/:id/update", category_controller.category_update_post);
+router.get("/category/:id", category_controller.category_detail);
+router.get("/categories", category_controller.category_list);
 
 module.exports = router;

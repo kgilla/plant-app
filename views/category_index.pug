@@ -1,0 +1,10 @@
+extends layout
+
+block content
+  
+  div(class="category-link-box")
+    
+    h1(class="sub-title")= title
+    
+    each category in category_list
+      a(href=category.url class="category-link") #{category.name}

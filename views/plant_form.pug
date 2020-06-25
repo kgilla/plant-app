@@ -10,16 +10,16 @@ block content
       label(for="description") Description
       textarea(name="description", cols="30", rows="10" required="true")= (undefined===plant ? '' : plant.description)
     div(class="form-group")
-      label(for="catagory") Plant Catagory
-      select(name="catagory")
-        each catagory in catagories
+      label(for="category") Plant Category
+      select(name="category")
+        each category in categories
           if plant === undefined
-            option(value=catagory.id)= catagory.name
+            option(value=category.id)= category.name
           else
-            if catagory.name === plant.catagory.name
-              option(value=catagory.id selected="selected")= catagory.name
+            if category.name === plant.category.name
+              option(value=category.id selected="selected")= category.name
             else  
-              option(value=catagory.id)= catagory.name
+              option(value=category.id)= category.name
     div(class="form-group")
       label(for="price") Price
       input(type="text" name="price" value=(undefined===plant ? '' : plant.price))
@@ -29,7 +29,8 @@ block content
     div(class="form-group")
       label(for="image") Add An Image
       if plant
-        img(src=`/images/${plant.image}` class="thumbnail")
+        if plant.image
+          img(src=`/images/${plant.image}` class="thumbnail")
       input(type="file" name="image" accept="image/png, image/jpeg" value=)
     button(type="submit")= button
   if errors 

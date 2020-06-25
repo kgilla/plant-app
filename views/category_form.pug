@@ -4,9 +4,9 @@ block content
   form(action="" method="POST")
     h1(class="sub-title")= title
     div(class="form-group")
-      label(for="name") Catagory Name
-      input(type="text" name="name" required="true" value=(undefined===catagory ? '' : catagory.name))
-    button(type="submit") Add Catagory
+      label(for="name") Category Name
+      input(type="text" name="name" required="true" value=(undefined===category ? '' : category.name))
+    button(type="submit") Add Category
     
   if errors 
     ul

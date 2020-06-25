@@ -1,5 +1,5 @@
 var Plant = require("../models/plant");
-const Catagory = require("../models/catagory");
+const Category = require("../models/category");
 const { body, sanitizeBody, validationResult } = require("express-validator");
 var fs = require("fs");
 
@@ -10,7 +10,7 @@ exports.home = function (req, res) {
 // Display list of all plants.
 exports.plant_list = function (req, res) {
   Plant.find()
-    .populate("catagory")
+    .populate("category")
     .exec((err, list_plants) => {
       if (err) {
         return next(err);
@@ -25,7 +25,7 @@ exports.plant_list = function (req, res) {
 // Display detail page for a specific plant.
 exports.plant_detail = function (req, res) {
   Plant.findById(req.params.id)
-    .populate("catagory")
+    .populate("category")
     .exec((err, plant) => {
       if (err) {
         return next(err);
@@ -39,14 +39,14 @@ exports.plant_detail = function (req, res) {
 
 // Display plant create form on GET.
 exports.plant_create_get = async function (req, res) {
-  await Catagory.find().exec((err, catagories) => {
+  await Category.find().exec((err, categories) => {
     if (err) {
       return next(err);
     }
     res.render("plant_form", {
       title: "Add A Plant",
       button: "Add Plant",
-      catagories: catagories,
+      categories: categories,
     });
   });
 };
@@ -74,7 +74,7 @@ exports.plant_create_post = [
     let plant = new Plant({
       name: req.body.name,
       description: req.body.description,
-      catagory: req.body.catagory,
+      category: req.body.category,
       price: req.body.price,
       stock: req.body.stock,
       image: image,
@@ -123,9 +123,9 @@ exports.plant_delete_post = function (req, res) {
 
 // Display plant update form on GET.
 exports.plant_update_get = async function (req, res) {
-  const catagories = await Catagory.find();
+  const categories = await Category.find();
   await Plant.findById(req.params.id)
-    .populate("catagory")
+    .populate("category")
     .exec((err, plant) => {
       if (err) {
         return next(err);
@@ -134,7 +134,7 @@ exports.plant_update_get = async function (req, res) {
         title: "Update Plant",
         button: "Update Plant",
         plant: plant,
-        catagories: catagories,
+        categories: categories,
       });
     });
 };
@@ -178,7 +178,7 @@ exports.plant_update_post = [
     let plant = new Plant({
       name: req.body.name,
       description: req.body.description,
-      catagory: req.body.catagory,
+      category: req.body.category,
       price: req.body.price,
       stock: req.body.stock,
       image: plantImage,
