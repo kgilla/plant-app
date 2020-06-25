@@ -26,7 +26,7 @@ router.get("/", plant_controller.home);
 
 /// PLANT ROUTES ///
 router.get("/plant/create", plant_controller.plant_create_get);
-router.post("/plant/create", plant_controller.plant_create_post);
+router.post("/plant/create", upload, plant_controller.plant_create_post);
 router.get("/plant/:id/delete", plant_controller.plant_delete_get);
 router.post("/plant/:id/delete", plant_controller.plant_delete_post);
 router.get("/plant/:id/update", plant_controller.plant_update_get);

@@ -29,8 +29,7 @@ block content
     div(class="form-group")
       label(for="image") Add An Image
       if plant
-        h3 current image:
-        img(src=`/images/${plant.image}` class="thumbnail")  
+        img(src=`/images/${plant.image}` class="thumbnail")
       input(type="file" name="image" accept="image/png, image/jpeg" value=)
     button(type="submit")= button
   if errors 

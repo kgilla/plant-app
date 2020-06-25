@@ -1,6 +1,7 @@
 var Plant = require("../models/plant");
 const Catagory = require("../models/catagory");
 const { body, sanitizeBody, validationResult } = require("express-validator");
+var fs = require("fs");
 
 exports.home = function (req, res) {
   res.render("home", { title: "Welcome" });
@@ -68,12 +69,15 @@ exports.plant_create_post = [
   (req, res, next) => {
     const errors = validationResult(req);
 
+    const image = req.file ? req.file.filename : "";
+
     let plant = new Plant({
       name: req.body.name,
       description: req.body.description,
       catagory: req.body.catagory,
       price: req.body.price,
       stock: req.body.stock,
+      image: image,
     });
 
     if (!errors.isEmpty()) {
@@ -152,11 +156,21 @@ exports.plant_update_post = [
 
   async (req, res, next) => {
     const errors = validationResult(req);
+
     let plantImage = "";
+
     const savedPlant = await Plant.findById(req.params.id);
 
     if (savedPlant.image) {
-      plantImage = savedPlant.image;
+      if (req.file) {
+        fs.unlink(`public/images/${savedPlant.image}`, (err) => {
+          if (err) throw err;
+          console.log("File deleted!");
+        });
+        plantImage = req.file.filename;
+      } else {
+        plantImage = savedPlant.image;
+      }
     } else {
       plantImage = req.file.filename;
     }

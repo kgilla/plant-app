@@ -128,7 +128,7 @@ nav {
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
-  padding: 1rem;
+  padding: 1rem 3rem;
   background: #fff;
   border: 0.1rem solid #ccc;
   border-radius: 0.5rem;
@@ -136,7 +136,7 @@ nav {
 
 .plant-detail-box img {
   height: auto;
-  width: 100%;
+  width: 90%;
   padding: 1rem 0;
 }
 
@@ -232,6 +232,7 @@ form button:hover {
   object-position: center;
   object-fit: cover;
   border-radius: 0.5rem;
+  padding: 1rem;
 }
 
 /* Catagory Index */
