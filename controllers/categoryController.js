@@ -1,34 +1,6 @@
 const Category = require("../models/category");
 const Plant = require("../models/plant");
-const { body, sanitizeBody, validationResult } = require("express-validator");
-
-// Display list of all categorys.
-exports.category_list = function (req, res) {
-  Category.find().exec((err, list_catagories) => {
-    if (err) {
-      return next(err);
-    }
-    res.render("category_index", {
-      title: "Plant Catagories",
-      category_list: list_catagories,
-    });
-  });
-};
-
-// Display detail page for a specific category.
-exports.category_detail = async function (req, res) {
-  const cat = await Category.findById(req.params.id);
-  Plant.find({ category: cat }).exec((err, plants) => {
-    if (err) {
-      return next(err);
-    }
-    res.render("category_detail", {
-      title: cat.name,
-      plants: plants,
-      category: cat,
-    });
-  });
-};
+const { body, validationResult } = require("express-validator");
 
 // Display category create form on GET.
 exports.category_create_get = function (req, res) {
@@ -41,8 +13,6 @@ exports.category_create_post = [
     .trim()
     .isLength({ min: 1 })
     .withMessage("Name must not be empty"),
-
-  sanitizeBody("name").trim().escape(),
 
   async (req, res, next) => {
     const errors = validationResult(req);
@@ -82,16 +52,6 @@ exports.category_create_post = [
   },
 ];
 
-// Display category delete form on GET.
-exports.category_delete_get = function (req, res) {
-  res.send("NOT IMPLEMENTED: category delete GET");
-};
-
-// Handle category delete on POST.
-exports.category_delete_post = function (req, res) {
-  res.send("NOT IMPLEMENTED: category delete POST");
-};
-
 // Display category update form on GET.
 exports.category_update_get = function (req, res) {
   Category.findById(req.params.id).exec((err, category) => {
@@ -111,8 +71,6 @@ exports.category_update_post = [
     .trim()
     .isLength({ min: 1 })
     .withMessage("Name must not be empty"),
-
-  sanitizeBody("name").trim().escape(),
 
   async (req, res, next) => {
     const errors = validationResult(req);
@@ -157,3 +115,50 @@ exports.category_update_post = [
     }
   },
 ];
+
+// Display category delete form on GET.
+exports.category_delete_get = function (req, res, next) {
+  Category.findById(req.params.id).exec((err, category) => {
+    if (err) return next(err);
+    Plant.find({ category: category }).exec((err, plants) => {
+      if (err) return next(err);
+      res.json({
+        category,
+        plants,
+      });
+    });
+  });
+};
+
+// Handle category delete on POST.
+exports.category_delete_post = function (req, res) {
+  res.send("NOT IMPLEMENTED: category delete POST");
+};
+
+// Display list of all categorys.
+exports.category_list = function (req, res) {
+  Category.find().exec((err, list_catagories) => {
+    if (err) {
+      return next(err);
+    }
+    res.render("category_index", {
+      title: "Plant Catagories",
+      category_list: list_catagories,
+    });
+  });
+};
+
+// Display detail page for a specific category.
+exports.category_detail = async function (req, res) {
+  const cat = await Category.findById(req.params.id);
+  Plant.find({ category: cat }).exec((err, plants) => {
+    if (err) {
+      return next(err);
+    }
+    res.render("category_detail", {
+      title: cat.name,
+      plants: plants,
+      category: cat,
+    });
+  });
+};

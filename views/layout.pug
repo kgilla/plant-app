@@ -1,23 +1,12 @@
 doctype html
-html
+html  
   head
-    title= title
-    meta(charset='utf-8')
-    meta(name='viewport', content='width=device-width, initial-scale=1')
-    link(rel='stylesheet', href='/stylesheets/reset.css')
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    include partials/_head
   body
     script 0
-    nav
-      div(class="main-header")
-        a(href="/")
-          h1(class="main-heading") Plantarama
-      div(class="nav-links")
-        div(class="left-nav-links")
-          a(href="/plants" class="nav-link") All Plants
-          a(href="/categories" class="nav-link") Plant Catagories
-        div(class="right-nav-links")
-          a(href="/plant/create" class="nav-link") Add Plant
-          a(href="/category/create" class="nav-link") Add Category
+    include partials/_navbar
     div(class="main-content")
       block content
+    script(src="/javascripts/index.js")
+
+

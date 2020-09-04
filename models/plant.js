@@ -12,7 +12,7 @@ const PlantSchema = new Schema({
 });
 
 PlantSchema.virtual("url").get(function () {
-  return "/plant/" + this._id;
+  return "/plants/" + this._id;
 });
 
 module.exports = mongoose.model("Plant", PlantSchema);

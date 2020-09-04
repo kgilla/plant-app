@@ -20,6 +20,7 @@ block content
       div(class="button-box")
         a(href=plant.url+"/update" class="update-link") Edit Plant
         a(href=plant.url+"/delete" class="delete-link") Delete Plant
+        button#addItem Add To Cart
     else
       form(action="" method="POST")
         label(for="delete") Delete #{plant.name}?

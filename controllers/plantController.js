@@ -1,41 +1,7 @@
-var Plant = require("../models/plant");
+const Plant = require("../models/plant");
 const Category = require("../models/category");
-const { body, sanitizeBody, validationResult } = require("express-validator");
-var fs = require("fs");
-
-exports.home = function (req, res) {
-  res.render("home", { title: "Welcome" });
-};
-
-// Display list of all plants.
-exports.plant_list = function (req, res) {
-  Plant.find()
-    .populate("category")
-    .exec((err, list_plants) => {
-      if (err) {
-        return next(err);
-      }
-      res.render("plant_index", {
-        title: "All Plants",
-        plant_list: list_plants,
-      });
-    });
-};
-
-// Display detail page for a specific plant.
-exports.plant_detail = function (req, res) {
-  Plant.findById(req.params.id)
-    .populate("category")
-    .exec((err, plant) => {
-      if (err) {
-        return next(err);
-      }
-      res.render("plant_detail", {
-        title: plant.name,
-        plant: plant,
-      });
-    });
-};
+const { body, validationResult } = require("express-validator");
+const fs = require("fs");
 
 // Display plant create form on GET.
 exports.plant_create_get = async function (req, res) {
@@ -62,9 +28,6 @@ exports.plant_create_post = [
     .trim()
     .isLength({ min: 1 })
     .withMessage("Description must not be empty"),
-
-  sanitizeBody("name").trim().escape(),
-  sanitizeBody("description").trim().escape(),
 
   (req, res, next) => {
     const errors = validationResult(req);
@@ -97,28 +60,34 @@ exports.plant_create_post = [
   },
 ];
 
-// Display plant delete form on GET.
-exports.plant_delete_get = async function (req, res) {
-  await Plant.findById(req.params.id).exec((err, plant) => {
-    if (err) {
-      return next(err);
-    }
-    res.render("plant_detail", {
-      title: plant.name,
-      plant: plant,
-      delete_plant: true,
+// Display list of all plants.
+exports.plant_list = function (req, res) {
+  Plant.find()
+    .populate("category")
+    .exec((err, list_plants) => {
+      if (err) {
+        return next(err);
+      }
+      res.render("plant_index", {
+        title: "All Plants",
+        plant_list: list_plants,
+      });
     });
-  });
 };
 
-// Handle plant delete on POST.
-exports.plant_delete_post = function (req, res) {
-  Plant.findByIdAndRemove(req.params.id, function deletePlant(err) {
-    if (err) {
-      return next(err);
-    }
-    res.redirect("/plants");
-  });
+// Display detail page for a specific plant.
+exports.plant_detail = function (req, res) {
+  Plant.findById(req.params.id)
+    .populate("category")
+    .exec((err, plant) => {
+      if (err) {
+        return next(err);
+      }
+      res.render("plant_detail", {
+        title: plant.name,
+        plant: plant,
+      });
+    });
 };
 
 // Display plant update form on GET.
@@ -150,9 +119,6 @@ exports.plant_update_post = [
     .trim()
     .isLength({ min: 1 })
     .withMessage("Description must not be empty"),
-
-  sanitizeBody("name").trim().escape(),
-  sanitizeBody("description").trim().escape(),
 
   async (req, res, next) => {
     const errors = validationResult(req);
@@ -201,3 +167,27 @@ exports.plant_update_post = [
     }
   },
 ];
+
+// Display plant delete form on GET.
+exports.plant_delete_get = async function (req, res) {
+  await Plant.findById(req.params.id).exec((err, plant) => {
+    if (err) {
+      return next(err);
+    }
+    res.render("plant_detail", {
+      title: plant.name,
+      plant: plant,
+      delete_plant: true,
+    });
+  });
+};
+
+// Handle plant delete on POST.
+exports.plant_delete_post = function (req, res) {
+  Plant.findByIdAndRemove(req.params.id, function deletePlant(err) {
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/plants");
+  });
+};
