@@ -6,12 +6,17 @@ block content
     div.plant-collection
       each plant in plant_list
         div.plant-box
-          a(href=plant.url)
-            if plant.image
-              img(src=`/images/${plant.image}`)
-            else
-              img(src='/images/stock-plant.jpg')
-          h2.plant-name.mt-3= plant.name
-          //- a(href=plant.url class="link") Learn More
+          if plant.image
+            figure(class="plant-index-image" style=`background-image:url(/images/${plant.image})`)
+              figcaption.plant-index-caption
+                h2.plant-name.mt-3= plant.name
+                a(href=plant.url class="btn btn-primary") Learn More
+              div.plant-overlay
+          else 
+            figure(class="project-index-image" style="background-image:url(/images/stock-plant.jpg)")
+              figcaption
+                h2.plant-name.mt-3= plant.name
+                a(href=plant.url class="btn btn-primary") Learn More
+              div.plant-overlay
 
 

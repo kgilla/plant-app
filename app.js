@@ -3,6 +3,9 @@ const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
+const session = require("express-session");
+const passport = require("passport");
+require("./config/passport");
 require("dotenv").config();
 
 //Set up mongoose connection
@@ -21,6 +24,20 @@ const app = express();
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
+
+// Sessions
+app.use(
+  session({
+    // store: sessionStore,
+    secret: "secret",
+    resave: false,
+    saveUninitialized: true,
+  })
+);
+
+// Passport
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(logger("dev"));
 app.use(express.json());

@@ -2,8 +2,8 @@ extends layout
 
 block content
 
-  div.container
-    figure.plant-detail-image
+  div.container.plant-details-box
+    figure(class="plant-detail-image")
       if plant.image
         img(src=`/images/${plant.image}`)
       else
@@ -11,19 +11,27 @@ block content
     header.plant-detail-header
       h1.main-title.mr-3= plant.name
       a(href=plant.category.url class="link")= plant.category.name
-    main          
+    main         
       p(class="plant-description")= plant.description
-
       p(class="plant-stock") $#{plant.price} (#{plant.stock} left!)
     footer
-      if delete_plant === undefined
-        div(class="button-box")
-          a(href=plant.url+"/update" class="btn btn-primary") Edit Plant
-          a(href=plant.url+"/delete" class="btn btn-success") Delete Plant
-      else
-        form(action="" method="POST")
-          label(for="delete") Delete #{plant.name}?
-          a(href=plant.url) No I Need This Plant!
-          button(type="submit") Really Delete?
-
-
+      div(class="button-box")
+        a(href=plant.url+"/update" class="btn btn-primary") Edit Plant
+        a(href=plant.url+"/delete" class="btn btn-warning") Delete Plant
+      form
+         // Button trigger modal
+    button.btn.btn-primary(type='button', data-toggle='modal', data-target='#exampleModal')
+      | Launch demo modal
+    // Modal
+    #exampleModal.modal.fade(tabindex='-1', aria-labelledby='exampleModalLabel', aria-hidden='true')
+      .modal-dialog
+        .modal-content
+          .modal-header
+            h5#exampleModalLabel.modal-title Modal title
+            button.close(type='button', data-dismiss='modal', aria-label='Close')
+              span(aria-hidden='true') ×
+          .modal-body
+            | ...
+          .modal-footer
+            button.btn.btn-secondary(type='button', data-dismiss='modal') Close
+            button.btn.btn-primary(type='button') Save changes

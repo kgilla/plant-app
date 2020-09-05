@@ -7,6 +7,9 @@ block content
       div(class="form-group")
         label(for="name") Category Name
         input(class="form-control" type="text" name="name" required="true" value=(undefined===category ? '' : category.name))
+      div(class="form-group")
+        label(for="description") Category Description
+        textarea(class="form-control" type="text" name="description" required="true")=undefined===category ? '' : category.description
       button(type="submit" class="btn btn-primary btn-block") Add Category
       
     if errors 

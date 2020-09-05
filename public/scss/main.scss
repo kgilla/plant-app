@@ -1,8 +1,11 @@
 @import "./reset";
 @import "../../node_modules/bootstrap/scss/bootstrap.scss";
 @import "./plants";
+@import "./plant-index";
+@import "./plant-detail";
 @import "./navbar";
 @import "./forms";
+@import "./footer";
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap");
 
 html {
@@ -63,4 +66,39 @@ body {
   flex-direction: column;
   align-items: center;
   color: #fff;
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) {
+  html {
+    font-size: 16px;
+  }
+
+  .plant-collection {
+    grid-template-columns: 1fr;
+  }
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) {
+  .plant-collection {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) {
+  html {
+    font-size: 17px;
+  }
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+  html {
+    font-size: 18px;
+  }
+  .plant-collection {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
 }

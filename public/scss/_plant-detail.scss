@@ -1,0 +1,26 @@
+.plant-details-box {
+  margin-bottom: 2rem;
+}
+
+.plant-detail-image {
+  max-height: 500px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.plant-detail-image img {
+  height: auto;
+  width: 100%;
+}
+
+.plant-detail-header {
+  display: flex;
+  flex-direction: column;
+}
+
+.plant-description {
+  line-height: 2;
+}
