@@ -1,11 +1,12 @@
-nav
-  div(class="main-header")
-    a(href="/")
-      h1(class="main-heading") Plantarama
-  div(class="nav-links")
-    div(class="left-nav-links")
+nav.navbar.navbar-expand-lg.navbar-light
+  div.left-nav
+    img(src="/images/background-images/pngfuel.com.png" width="40px" height="40px")
+    a(href="/" class="navbar-brand main-heading") Plantarama
+  button(class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation")
+    span.navbar-toggler-icon 
+  div.collapse.navbar-collapse#navbarSupportedContent
+    div.navbar-nav.ml-auto 
+      a(href="/plants/create" class="nav-link") Add Plant
+      a(href="/category/create" class="nav-link") Add Category
       a(href="/plants" class="nav-link") All Plants
       a(href="/category" class="nav-link") Plant Catagories
-    div(class="right-nav-links")
-      a(href="/plant/create" class="nav-link") Add Plant
-      a(href="/category/create" class="nav-link") Add Category

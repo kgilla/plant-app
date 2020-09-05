@@ -2,29 +2,28 @@ extends layout
 
 block content
 
-  div(class="plant-detail-box")
-
-    h1(class="sub-title")= title
-    a(href=plant.category.url class="link")= plant.category.name
+  div.container
+    header.plant-detail-header
+      h1.main-title.mr-3= plant.name
+      a(href=plant.category.url class="link")= plant.category.name
 
     if plant.image
       img(src=`/images/${plant.image}`)
     else
       img(src='/images/stock-plant.jpg')
-              
-    p(class="plant-description")= plant.description
+    main          
+      p(class="plant-description")= plant.description
 
-    p(class="plant-stock") $#{plant.price} (#{plant.stock} left!)
-
-    if delete_plant === undefined
-      div(class="button-box")
-        a(href=plant.url+"/update" class="update-link") Edit Plant
-        a(href=plant.url+"/delete" class="delete-link") Delete Plant
-        button#addItem Add To Cart
-    else
-      form(action="" method="POST")
-        label(for="delete") Delete #{plant.name}?
-        a(href=plant.url) No I Need This Plant!
-        button(type="submit") Really Delete?
+      p(class="plant-stock") $#{plant.price} (#{plant.stock} left!)
+    footer
+      if delete_plant === undefined
+        div(class="button-box")
+          a(href=plant.url+"/update" class="btn btn-primary") Edit Plant
+          a(href=plant.url+"/delete" class="btn btn-success") Delete Plant
+      else
+        form(action="" method="POST")
+          label(for="delete") Delete #{plant.name}?
+          a(href=plant.url) No I Need This Plant!
+          button(type="submit") Really Delete?
 
 

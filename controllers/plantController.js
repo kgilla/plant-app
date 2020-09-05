@@ -4,8 +4,8 @@ const { body, validationResult } = require("express-validator");
 const fs = require("fs");
 
 // Display plant create form on GET.
-exports.plant_create_get = async function (req, res) {
-  await Category.find().exec((err, categories) => {
+exports.plant_create_get = (req, res) => {
+  Category.find().exec((err, categories) => {
     if (err) {
       return next(err);
     }

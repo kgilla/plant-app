@@ -1,39 +1,40 @@
 extends layout
 
 block content
-  form(action="" method="POST" enctype="multipart/form-data")
-    h1(class="sub-title")= title
-    div(class="form-group")
-      label(for="name") Plant Name
-      input(type="text" name="name" required="true" value=(undefined===plant ? '' : plant.name))
-    div(class="form-group")
-      label(for="description") Description
-      textarea(name="description", cols="30", rows="10" required="true")= (undefined===plant ? '' : plant.description)
-    div(class="form-group")
-      label(for="category") Plant Category
-      select(name="category")
-        each category in categories
-          if plant === undefined
-            option(value=category.id)= category.name
-          else
-            if category.name === plant.category.name
-              option(value=category.id selected="selected")= category.name
-            else  
+  div.container
+    form(action="" method="POST" enctype="multipart/form-data")
+      h1(class="sub-title")= title
+      div(class="form-group")
+        label(for="name") Plant Name
+        input(class="form-control" type="text" name="name" required="true" value=(undefined===plant ? '' : plant.name))
+      div(class="form-group")
+        label(for="description") Description
+        textarea(class="form-control" name="description", cols="30", rows="10" required="true")= (undefined===plant ? '' : plant.description)
+      div(class="form-group")
+        label(for="category") Plant Category
+        select(class="form-control" name="category")
+          each category in categories
+            if plant === undefined
               option(value=category.id)= category.name
-    div(class="form-group")
-      label(for="price") Price
-      input(type="text" name="price" value=(undefined===plant ? '' : plant.price))
-    div(class="form-group")
-      label(for="stock") Current Stock
-      input(type="text" name="stock" value=(undefined===plant ? '' : plant.stock))
-    div(class="form-group")
-      label(for="image") Add An Image
-      if plant
-        if plant.image
-          img(src=`/images/${plant.image}` class="thumbnail")
-      input(type="file" name="image" accept="image/png, image/jpeg" value=)
-    button(type="submit")= button
-  if errors 
-    ul
-      for error in errors
-        li!= error.msg
+            else
+              if category.name === plant.category.name
+                option(value=category.id selected="selected")= category.name
+              else  
+                option(value=category.id)= category.name
+      div(class="form-group")
+        label(for="price") Price
+        input( class="form-control" type="text" name="price" value=(undefined===plant ? '' : plant.price))
+      div(class="form-group")
+        label(for="stock") Current Stock
+        input(class="form-control" type="text" name="stock" value=(undefined===plant ? '' : plant.stock))
+      div(class="form-group")
+        label(for="image") Add An Image
+        if plant
+          if plant.image
+            img(src=`/images/${plant.image}` class="thumbnail")
+        input(type="file" name="image" accept="image/png, image/jpeg")
+      button(type="submit" class="btn btn-primary btn-block")= button
+    if errors 
+      ul
+        for error in errors
+          li!= error.msg

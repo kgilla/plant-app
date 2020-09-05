@@ -1,18 +1,17 @@
 extends layout
 
 block content
-  h1(class="sub-title")= title
-
-  div(class="plant-collection")
-    each plant in plant_list
-      div(class="plant-box")
-        a(href=plant.url)
-          if plant.image
-            img(src=`/images/${plant.image}`)
-          else
-            img(src='/images/stock-plant.jpg')
-        h2(class="plant-name")= plant.name
-        p(class="plant-details")= plant.description.slice(0, 180) + "..."
-        a(href=plant.url class="link") Learn More
+  div.container.mt-3
+    h1.sub-heading.text-left All Plants
+    div.plant-collection
+      each plant in plant_list
+        div.plant-box
+          a(href=plant.url)
+            if plant.image
+              img(src=`/images/${plant.image}`)
+            else
+              img(src='/images/stock-plant.jpg')
+          h2.plant-name.mt-3= plant.name
+          //- a(href=plant.url class="link") Learn More
 
 
