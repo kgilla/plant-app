@@ -1,15 +1,15 @@
 extends layout
 
 block content
-  div.container
+  div.container.form-centered.mt-3.mb-3
     form(action="" method="POST" enctype="multipart/form-data")
-      h1(class="sub-title")= title
+      h1(class="sub-heading")= title
       div(class="form-group")
         label(for="name") Plant Name
         input(class="form-control" type="text" name="name" required="true" value=(undefined===plant ? '' : plant.name))
       div(class="form-group")
         label(for="description") Description
-        textarea(class="form-control" name="description", cols="30", rows="10" required="true")= (undefined===plant ? '' : plant.description)
+        textarea(class="form-control" name="description", required="true")= (undefined===plant ? '' : plant.description)
       div(class="form-group")
         label(for="category") Plant Category
         select(class="form-control" name="category")

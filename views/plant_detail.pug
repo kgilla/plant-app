@@ -3,14 +3,14 @@ extends layout
 block content
 
   div.container
+    figure.plant-detail-image
+      if plant.image
+        img(src=`/images/${plant.image}`)
+      else
+        img(src='/images/stock-plant.jpg')
     header.plant-detail-header
       h1.main-title.mr-3= plant.name
       a(href=plant.category.url class="link")= plant.category.name
-
-    if plant.image
-      img(src=`/images/${plant.image}`)
-    else
-      img(src='/images/stock-plant.jpg')
     main          
       p(class="plant-description")= plant.description
 

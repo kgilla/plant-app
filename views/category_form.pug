@@ -1,14 +1,15 @@
 extends layout
 
 block content
-  form(action="" method="POST")
-    h1(class="sub-title")= title
-    div(class="form-group")
-      label(for="name") Category Name
-      input(type="text" name="name" required="true" value=(undefined===category ? '' : category.name))
-    button(type="submit") Add Category
-    
-  if errors 
-    ul
-      for error in errors
-        li!= error.msg
+  div.container.form-centered.mt-3.mb-3
+    form(action="" method="POST")
+      h1.sub-heading= title
+      div(class="form-group")
+        label(for="name") Category Name
+        input(class="form-control" type="text" name="name" required="true" value=(undefined===category ? '' : category.name))
+      button(type="submit" class="btn btn-primary btn-block") Add Category
+      
+    if errors 
+      ul
+        for error in errors
+          li!= error.msg

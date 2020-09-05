@@ -20,9 +20,17 @@
   align-items: center;
 }
 
-.plant-detail-box img {
+.plant-detail-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-height: 600px;
+  overflow: hidden;
+}
+
+.plant-detail-image img {
   height: auto;
-  width: 300px;
+  width: 900px;
 }
 
 .plant-description {
