@@ -56,7 +56,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+  background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
     url("/images/background-images/scott-webb-oRWRlTgBrPo-unsplash.jpg");
   background-position: center;
   // background-size: cover;
@@ -69,8 +69,50 @@ body {
   color: #fff;
 }
 
+.hero-heading {
+  font-size: 3rem;
+  text-align: center;
+  font-weight: 800;
+  padding: 1rem;
+}
+
 .dropdown-menu {
   border: none;
+}
+
+.square-trio {
+  display: grid;
+  gap: 2rem;
+  padding: 2rem;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(3, 20rem);
+}
+
+#square1,
+#square2,
+#square3 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-size: cover;
+  background-position: center;
+  color: #fff;
+  text-decoration: none;
+}
+
+#square1 {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+    url("/images/background-images/caleb-george-5sF6NrB1MEg-unsplash.jpg");
+}
+
+#square2 {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+    url("/images/background-images/scott-webb-KpuWtiszFQw-unsplash.jpg");
+}
+
+#square3 {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+    url("/images/background-images/pic.jpg");
 }
 
 // Small devices (landscape phones, 576px and up)
@@ -78,9 +120,17 @@ body {
   html {
     font-size: 16px;
   }
+  .category-index {
+    grid-template-columns: 1fr;
+  }
 
   .plant-collection {
     grid-template-columns: 1fr;
+  }
+
+  .square-trio {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(3, 20rem);
   }
 }
 
@@ -95,6 +145,14 @@ body {
 @media (min-width: 992px) {
   html {
     font-size: 17px;
+  }
+  .category-index {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .square-trio {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 20rem;
   }
 }
 

@@ -10,13 +10,13 @@ block content
             figure(class="plant-index-image" style=`background-image:url(/images/${plant.image})`)
               figcaption.plant-index-caption
                 h2.plant-name.mt-3= plant.name
-                a(href=plant.url class="btn btn-primary") Learn More
+                a(href=plant.url class="btn btn-success") Learn More
               div.plant-overlay
           else 
             figure(class="project-index-image" style="background-image:url(/images/stock-plant.jpg)")
               figcaption
                 h2.plant-name.mt-3= plant.name
-                a(href=plant.url class="btn btn-primary") Learn More
+                a(href=plant.url class="btn btn-success") Learn More
               div.plant-overlay
   
   include partials/_footer

@@ -4,5 +4,16 @@
   justify-content: space-evenly;
   align-items: center;
   background-color: #f4f4f4;
+}
+
+.hidden-link .small-heading {
   color: #aaa;
+  text-decoration: none;
+}
+
+.hidden-link:hover {
+  text-decoration: none;
+  .small-heading:hover {
+    color: #999;
+  }
 }

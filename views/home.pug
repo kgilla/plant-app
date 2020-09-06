@@ -2,12 +2,20 @@ extends layout
 
 block content
   if success != ""
-    div.alert.alert-success Hey there sexy!
+    div.alert.alert-success= success
   div.hero
     div.hero-text-box
-      h1.main-heading Plants Are Neat!
+      h1.hero-heading Plants Are Neat!
       h2.sub-heading Create an indoor jungle with these plants.
-      a.btn.btn-primary(href="/plants") Browse Plants
+      a.btn.btn-success(href="/plants") Browse Plants
+  div.square-trio
+    a(href="/category")#square1
+      h2.sub-heading Browse plants by category.
+    a(href="/about")#square2
+      h2.sub-heading What is Plantarama all about.
+    a(href="")#square3
+      h2.sub-heading How to better take care of plants and see them thrive.
+
   include partials/_footer
 
 

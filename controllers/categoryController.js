@@ -63,6 +63,7 @@ exports.category_update_get = function (req, res) {
       title: "Update Category",
       name: category.name,
       description: category.description,
+      success: req.flash("success"),
     });
   });
 };
@@ -125,6 +126,7 @@ exports.category_update_post = [
           if (err) {
             return next(err);
           }
+          req.flash("success", "Category successfully updated!");
           res.redirect(category.url);
         }
       );

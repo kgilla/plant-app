@@ -1,18 +1,19 @@
 extends layout
 
 block content
-
+  if success
+    div.alert.alert-success= success
   div.container
     h2(class="sub-heading")= category.name
 
-    p.category-description.mb-3= category.description
+    p.category-description= category.description
 
     if currentUser
       div.admin-buttons
         a(href= category.url + "/update" class="btn btn-primary") Edit Category
         a(href= category.url + "/delete" class="btn btn-secondary") Delete Category
 
-    div.plant-collection
+    div.plant-collection.mt-5
       each plant in plants
         div.plant-box
           if plant.image

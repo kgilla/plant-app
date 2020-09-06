@@ -1,12 +1,12 @@
 extends layout
 
 block content
-  div.container.mb-3.mt-3.h100
-    div(class="category-link-box")
-      
-      h1(class="sub-title")= title
-      
+  div.container.category-index-box
+    h2.sub-heading.mb-3 Plant Categories
+
+    div(class="category-index")
       each category in category_list
-        a(href=category.url class="category-link") #{category.name}
-  
+        a(href=category.url class="category-link" style=`background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(/images/${category.image})`)
+          h2.sub-heading= category.name
+    
   include partials/_footer
