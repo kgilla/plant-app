@@ -32,7 +32,7 @@ block content
         if plant
           if plant.image
             img(src=`/images/${plant.image}` class="thumbnail")
-        input(type="file" name="image" accept="image/png, image/jpeg")
+        input(type="file" name="image" accept="image/png, image/jpeg" class="form-control")
       button(type="submit" class="btn btn-primary btn-block")= button
     if errors 
       ul

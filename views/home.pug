@@ -1,9 +1,13 @@
 extends layout
 
 block content
+  if success != ""
+    div.alert.alert-success Hey there sexy!
   div.hero
     div.hero-text-box
       h1.main-heading Plants Are Neat!
       h2.sub-heading Create an indoor jungle with these plants.
       a.btn.btn-primary(href="/plants") Browse Plants
+  include partials/_footer
+
 

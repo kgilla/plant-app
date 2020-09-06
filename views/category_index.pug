@@ -1,10 +1,12 @@
 extends layout
 
 block content
+  div.container.mb-3.mt-3.h100
+    div(class="category-link-box")
+      
+      h1(class="sub-title")= title
+      
+      each category in category_list
+        a(href=category.url class="category-link") #{category.name}
   
-  div(class="category-link-box")
-    
-    h1(class="sub-title")= title
-    
-    each category in category_list
-      a(href=category.url class="category-link") #{category.name}
+  include partials/_footer

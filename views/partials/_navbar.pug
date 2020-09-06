@@ -1,12 +1,20 @@
-nav.navbar.navbar-expand-lg.navbar-light
-  div.left-nav
-    img(src="/images/background-images/pngfuel.com.png" width="40px" height="40px")
-    a(href="/" class="navbar-brand main-heading") Plantarama
-  button(class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation")
-    span.navbar-toggler-icon 
-  div.collapse.navbar-collapse#navbarSupportedContent
-    div.navbar-nav.ml-auto 
-      a(href="/plants/create" class="nav-link") Add Plant
-      a(href="/category/create" class="nav-link") Add Category
-      a(href="/plants" class="nav-link") All Plants
-      a(href="/category" class="nav-link") Plant Categories
+div.container
+  nav.navbar.navbar-expand-lg.navbar-light.sticky-top
+    div.left-nav
+      img(src="/images/background-images/pngfuel.com.png" width="40px" height="40px")
+      a(href="/" class="navbar-brand main-heading") Plantarama
+    button(class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation")
+      span.navbar-toggler-icon 
+    div.collapse.navbar-collapse#navbarSupportedContent
+      div.navbar-nav.ml-auto 
+        a(href="/about" class="nav-link") About
+        a(href="/plants" class="nav-link") All Plants
+        a(href="/category" class="nav-link") Plant Categories
+        if currentUser 
+          div.nav-item.dropdown
+            a(class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false") Admin
+            div(class="dropdown-menu" aria-labelledby="navbarDropdown")
+              a(href="/plants/create" class="dropdown-item") Add Plant
+              a(href="/category/create" class="dropdown-item") Add Category
+              div.dropdown-divider
+              a(href="/logout" class="dropdown-item") Logout

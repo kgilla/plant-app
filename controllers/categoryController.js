@@ -1,6 +1,7 @@
 const Category = require("../models/category");
 const Plant = require("../models/plant");
 const { body, validationResult } = require("express-validator");
+const fs = require("fs");
 
 // Display category create form on GET.
 exports.category_create_get = function (req, res) {
@@ -60,7 +61,8 @@ exports.category_update_get = function (req, res) {
     }
     res.render("category_form", {
       title: "Update Category",
-      category: category,
+      name: category.name,
+      description: category.description,
     });
   });
 };
@@ -72,47 +74,61 @@ exports.category_update_post = [
     .isLength({ min: 1 })
     .withMessage("Name must not be empty"),
 
-  async (req, res, next) => {
-    const errors = validationResult(req);
+  body("description")
+    .trim()
+    .isLength({ min: 1 })
+    .withMessage("Description must not be empty"),
 
-    let category = new Category({
-      name: req.body.name,
-      _id: req.params.id,
-    });
+  (req, res, next) => {
+    const errors = validationResult(req);
+    const { name, description } = req.body;
 
     if (!errors.isEmpty()) {
       res.render("category_form", {
         title: "Add Category",
-        category: category,
+        name: name,
+        description: description,
         errors: errors.array(),
       });
       return;
-    } else {
-      Category.findOne({ name: req.body.name }).exec(function (
-        err,
-        found_category
-      ) {
-        if (err) {
-          return next(err);
-        }
-
-        if (found_category) {
-          res.redirect(found_category.url);
-        } else {
-          Category.findByIdAndUpdate(
-            req.params.id,
-            category,
-            {},
-            (err, category) => {
-              if (err) {
-                res.render("error", { err: err });
-              }
-              res.redirect(category.url);
-            }
-          );
-        }
-      });
     }
+
+    Category.findById(req.params.id).exec((err, category) => {
+      if (err) {
+        return next(err);
+      }
+      let categoryImage = "";
+      if (category.image) {
+        if (req.file) {
+          fs.unlink(`public/images/${category.image}`, (err) => {
+            if (err) throw err;
+            console.log("File deleted!");
+          });
+          categoryImage = req.file.filename;
+        } else {
+          categoryImage = category.image;
+        }
+      } else {
+        if (req.file) {
+          categoryImage = req.file.filename;
+        }
+      }
+      Category.findByIdAndUpdate(
+        req.params.id,
+        {
+          name: name,
+          description: description,
+          image: categoryImage,
+        },
+        {},
+        (err, category) => {
+          if (err) {
+            return next(err);
+          }
+          res.redirect(category.url);
+        }
+      );
+    });
   },
 ];
 

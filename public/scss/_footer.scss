@@ -1,4 +1,8 @@
 .main-footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
   background-color: #f4f4f4;
-  height: 10rem;
+  color: #aaa;
 }

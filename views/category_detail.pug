@@ -3,12 +3,16 @@ extends layout
 block content
 
   div.container
-    h1(class="sub-title")= title
+    h2(class="sub-heading")= category.name
 
-    a(href= category.url + "/update" class="update-link") Edit Category
-    a(href= category.url + "/delete") Delete Category
+    p.category-description.mb-3= category.description
 
-    div(class="plant-collection")
+    if currentUser
+      div.admin-buttons
+        a(href= category.url + "/update" class="btn btn-primary") Edit Category
+        a(href= category.url + "/delete" class="btn btn-secondary") Delete Category
+
+    div.plant-collection
       each plant in plants
         div.plant-box
           if plant.image
