@@ -5,7 +5,10 @@ const fs = require("fs");
 
 // Display category create form on GET.
 exports.category_create_get = function (req, res) {
-  res.render("category_form", { title: "Add Category" });
+  res.render("category_form", {
+    title: "Add Category",
+    button: "Add Category",
+  });
 };
 
 // Handle category create on POST.
@@ -15,55 +18,61 @@ exports.category_create_post = [
     .isLength({ min: 1 })
     .withMessage("Name must not be empty"),
 
-  async (req, res, next) => {
-    const errors = validationResult(req);
+  body("description")
+    .trim()
+    .isLength({ min: 1 })
+    .withMessage("Description must not be empty"),
 
-    let category = new Category({
-      name: req.body.name,
-    });
+  (req, res, next) => {
+    const errors = validationResult(req);
+    const { name, description } = req.body;
 
     if (!errors.isEmpty()) {
       res.render("category_form", {
         title: "Add Category",
-        category: category,
+        category: { name: name, description: description },
         errors: errors.array(),
       });
       return;
-    } else {
-      Category.findOne({ name: req.body.name }).exec(function (
-        err,
-        found_category
-      ) {
-        if (err) {
-          return next(err);
-        }
-
-        if (found_category) {
-          res.redirect(found_category.url);
-        } else {
-          category.save(function (err) {
-            if (err) {
-              return next(err);
-            }
-            res.redirect(category.url);
-          });
-        }
-      });
     }
+
+    Category.findOne({ name: name }).exec((err, found_category) => {
+      if (err) {
+        return next(err);
+      }
+
+      if (found_category) {
+        res.render("category_form", {
+          title: "Add Category",
+          name: name,
+          description: description,
+          error: "Category already exists",
+        });
+      }
+
+      new Category({ name: name, description: description }).save(
+        (err, category) => {
+          if (err) {
+            return next(err);
+          }
+          req.flash("success", "Category created successfully");
+          res.redirect(category.url);
+        }
+      );
+    });
   },
 ];
 
 // Display category update form on GET.
-exports.category_update_get = function (req, res) {
+exports.category_update_get = (req, res, next) => {
   Category.findById(req.params.id).exec((err, category) => {
     if (err) {
       return next(err);
     }
     res.render("category_form", {
       title: "Update Category",
-      name: category.name,
-      description: category.description,
-      success: req.flash("success"),
+      category: category,
+      button: "Update Category",
     });
   });
 };
@@ -87,8 +96,10 @@ exports.category_update_post = [
     if (!errors.isEmpty()) {
       res.render("category_form", {
         title: "Add Category",
-        name: name,
-        description: description,
+        category: {
+          name: name,
+          description: description,
+        },
         errors: errors.array(),
       });
       return;
@@ -135,7 +146,7 @@ exports.category_update_post = [
 ];
 
 // Display category delete form on GET.
-exports.category_delete_get = function (req, res, next) {
+exports.category_delete_get = (req, res, next) => {
   Category.findById(req.params.id).exec((err, category) => {
     if (err) return next(err);
     Plant.find({ category: category }).exec((err, plants) => {
@@ -153,30 +164,35 @@ exports.category_delete_post = function (req, res) {
   res.send("NOT IMPLEMENTED: category delete POST");
 };
 
-// Display list of all categorys.
-exports.category_list = function (req, res) {
-  Category.find().exec((err, list_catagories) => {
+// Display list of all categories.
+exports.category_list = (req, res, next) => {
+  Category.find().exec((err, catagories) => {
     if (err) {
       return next(err);
     }
     res.render("category_index", {
       title: "Plant Catagories",
-      category_list: list_catagories,
+      category_list: catagories,
     });
   });
 };
 
 // Display detail page for a specific category.
-exports.category_detail = async function (req, res) {
-  const cat = await Category.findById(req.params.id);
-  Plant.find({ category: cat }).exec((err, plants) => {
+exports.category_detail = (req, res, next) => {
+  Category.findById(req.params.id).exec((err, category) => {
     if (err) {
       return next(err);
     }
-    res.render("category_detail", {
-      title: cat.name,
-      plants: plants,
-      category: cat,
+    Plant.find({ category: category }).exec((err, plants) => {
+      if (err) {
+        return next(err);
+      }
+      res.render("category_detail", {
+        title: category.name,
+        plants: plants,
+        category: category,
+        success: req.flash("success"),
+      });
     });
   });
 };

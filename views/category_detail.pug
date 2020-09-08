@@ -1,7 +1,7 @@
 extends layout
 
 block content
-  if success
+  if success != ""
     div.alert.alert-success= success
   div.container
     h2(class="sub-heading")= category.name

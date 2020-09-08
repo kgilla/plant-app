@@ -4,7 +4,7 @@ const { body, validationResult } = require("express-validator");
 const fs = require("fs");
 
 // Display plant create form on GET.
-exports.plant_create_get = (req, res) => {
+exports.plant_create_get = (req, res, next) => {
   Category.find().exec((err, categories) => {
     if (err) {
       return next(err);
@@ -30,27 +30,31 @@ exports.plant_create_post = [
     .withMessage("Description must not be empty"),
 
   (req, res, next) => {
+    const { name, description, category, price, stock } = req.body;
     const errors = validationResult(req);
-
     const image = req.file ? req.file.filename : "";
-
-    let plant = new Plant({
-      name: req.body.name,
-      description: req.body.description,
-      category: req.body.category,
-      price: req.body.price,
-      stock: req.body.stock,
-      image: image,
-    });
 
     if (!errors.isEmpty()) {
       res.render("plant_form", {
         title: "Add A Plant",
-        plant: plant,
+        plant: {
+          name: name,
+          description: description,
+          category: category,
+          price: price,
+          stock: stock,
+        },
         errors: errors.array(),
       });
     } else {
-      plant.save(function (err) {
+      new Plant({
+        name: name,
+        description: description,
+        category: category,
+        price: price,
+        stock: stock,
+        image: image,
+      }).save((err, plant) => {
         if (err) {
           return next(err);
         }
@@ -61,22 +65,23 @@ exports.plant_create_post = [
 ];
 
 // Display list of all plants.
-exports.plant_list = function (req, res) {
+exports.plant_list = (req, res, next) => {
   Plant.find()
     .populate("category")
-    .exec((err, list_plants) => {
+    .exec((err, plants) => {
       if (err) {
         return next(err);
       }
       res.render("plant_index", {
         title: "All Plants",
-        plant_list: list_plants,
+        plant_list: plants,
+        success: req.flash("success"),
       });
     });
 };
 
 // Display detail page for a specific plant.
-exports.plant_detail = function (req, res) {
+exports.plant_detail = (req, res, next) => {
   Plant.findById(req.params.id)
     .populate("category")
     .exec((err, plant) => {
@@ -92,21 +97,25 @@ exports.plant_detail = function (req, res) {
 };
 
 // Display plant update form on GET.
-exports.plant_update_get = async function (req, res) {
-  const categories = await Category.find();
-  await Plant.findById(req.params.id)
-    .populate("category")
-    .exec((err, plant) => {
-      if (err) {
-        return next(err);
-      }
-      res.render("plant_form", {
-        title: "Update Plant",
-        button: "Update Plant",
-        plant: plant,
-        categories: categories,
+exports.plant_update_get = (req, res, next) => {
+  Category.find().exec((err, categories) => {
+    if (err) {
+      return next(err);
+    }
+    Plant.findById(req.params.id)
+      .populate("category")
+      .exec((err, plant) => {
+        if (err) {
+          return next(err);
+        }
+        res.render("plant_form", {
+          title: "Update Plant",
+          button: "Update Plant",
+          plant: plant,
+          categories: categories,
+        });
       });
-    });
+  });
 };
 
 // Handle plant update on POST.
@@ -121,62 +130,72 @@ exports.plant_update_post = [
     .isLength({ min: 1 })
     .withMessage("Description must not be empty"),
 
-  async (req, res, next) => {
+  (req, res, next) => {
     const errors = validationResult(req);
-
+    const { name, description, category, price, stock } = req.body;
     let plantImage = "";
-
-    const savedPlant = await Plant.findById(req.params.id);
-
-    if (savedPlant.image) {
-      if (req.file) {
-        fs.unlink(`public/images/${savedPlant.image}`, (err) => {
-          if (err) throw err;
-          console.log("File deleted!");
-        });
-        plantImage = req.file.filename;
-      } else {
-        plantImage = savedPlant.image;
-      }
-    } else {
-      plantImage = req.file.filename;
-    }
-
-    let plant = new Plant({
-      name: req.body.name,
-      description: req.body.description,
-      category: req.body.category,
-      price: req.body.price,
-      stock: req.body.stock,
-      image: plantImage,
-      _id: req.params.id,
-    });
 
     if (!errors.isEmpty()) {
       res.render("plant_form", {
         title: "Update Plant",
-        plant: plant,
+        plant: {
+          name: name,
+          description: description,
+          category: category,
+          price: price,
+          stock: stock,
+        },
         errors: errors.array(),
       });
-    } else {
-      Plant.findByIdAndUpdate(req.params.id, plant, {}, (err, plant) => {
-        if (err) {
-          return next(err);
-        }
-        res.redirect(plant.url);
-      });
     }
+
+    Plant.findById(req.params.id).exec((err, savedPlant) => {
+      if (err) {
+        return next(err);
+      }
+      if (savedPlant.image) {
+        if (req.file) {
+          fs.unlink(`public/images/${savedPlant.image}`, (err) => {
+            if (err) throw err;
+            console.log("File deleted!");
+          });
+          plantImage = req.file.filename;
+        } else {
+          plantImage = savedPlant.image;
+        }
+      } else {
+        plantImage = req.file.filename;
+      }
+      Plant.findByIdAndUpdate(
+        req.params.id,
+        {
+          name: name,
+          description: description,
+          category: category,
+          price: price,
+          stock: stock,
+          image: plantImage,
+        },
+        {},
+        (err, plant) => {
+          if (err) {
+            return next(err);
+          }
+          res.redirect(plant.url);
+        }
+      );
+    });
   },
 ];
 
 // Display plant delete form on GET.
-exports.plant_delete_get = async function (req, res) {
-  await Plant.findById(req.params.id).exec((err, plant) => {
+exports.plant_delete_get = (req, res, next) => {
+  Plant.findById(req.params.id).exec((err, plant) => {
     if (err) {
       return next(err);
     }
     res.render("plant_detail", {
-      title: plant.name,
+      title: "Delete Plant?",
       plant: plant,
       delete_plant: true,
     });
@@ -185,10 +204,11 @@ exports.plant_delete_get = async function (req, res) {
 
 // Handle plant delete on POST.
 exports.plant_delete_post = function (req, res) {
-  Plant.findByIdAndRemove(req.params.id, function deletePlant(err) {
+  Plant.findByIdAndRemove(req.params.id, (err) => {
     if (err) {
       return next(err);
     }
+    req.flash("success", "Plant deleted successfully");
     res.redirect("/plants");
   });
 };

@@ -4,23 +4,23 @@ block content
   div.container.form-centered.mt-3.mb-3
     form(action="" method="POST" enctype="multipart/form-data")
       h1.sub-heading= title
-      if errors 
+      if errors
         each error in errors
           div.alert.alert-danger= error.msg
       if error
         div.alert.alert-danger= error
-      if message
+      if message 
         div.alert.alert-danger= message
       div(class="form-group")
         label(for="name") Category Name
-        input(class="form-control" type="text" name="name" required="true" value=(undefined===name ? '' : name))
+        input(class="form-control" type="text" name="name" required="true" value=(undefined===category ? '' : category.name))
       div(class="form-group")
         label(for="description") Category Description
-        textarea(class="form-control" type="text" name="description" required="true")=undefined===description ? '' : description
+        textarea(class="form-control" type="text" name="description" required="true")=undefined===category ? '' : category.description
       div(class="form-group")
         label(for="image") Add An Image
         if plant
           if plant.image
             img(src=`/images/${plant.image}` class="thumbnail")
         input(type="file" name="image" accept="image/png, image/jpeg" class="form-control")
-      button(type="submit" class="btn btn-primary btn-block") Add Category
+      button(type="submit" class="btn btn-primary btn-block")= button
