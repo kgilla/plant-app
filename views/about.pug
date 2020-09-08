@@ -2,6 +2,11 @@ extends layout
 
 block content
 
-  div.container.h-100
-    h1.main-content About Plantarama
-    p.about-content 
+  div.container
+    h1.main-heading About Plantarama
+    p.content 
+      | Plantarama is a website made based on the curriculum of 
+      a(href="https://www.theodinproject.com/") The Odin Project
+      |. Plantarama is a plant database that offers users the ability to browse through a selection of plants, gain information, and purchase plants in a simple albeit rather unrefined way.
+
+    p.content Plantarama uses Express powered by Node.JS to serve requests. Data is handled through the use of MongoDB and Mongoose. A small user model is used along with Passport.JS to authenticate a single user and give them the ability to create, update, and delete plants/ categories. The front-end is rendered server-side with Pug and further styled with Bootstrap.

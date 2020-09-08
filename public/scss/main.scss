@@ -6,6 +6,7 @@
 @import "./navbar";
 @import "./forms";
 @import "./footer";
+@import "./shop_modal";
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap");
 
 html {
@@ -50,16 +51,25 @@ body {
   padding: 0.5rem;
 }
 
+.sub-total {
+  border-bottom: 0.1rem solid #eee;
+}
+
+.content {
+  line-height: 2;
+}
+
 .hero {
   width: 100%;
-  height: 40rem;
+  height: 30rem;
   display: flex;
   justify-content: center;
   align-items: center;
   background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
     url("/images/background-images/scott-webb-oRWRlTgBrPo-unsplash.jpg");
   background-position: center;
-  // background-size: cover;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .hero-text-box {
@@ -82,10 +92,10 @@ body {
 
 .square-trio {
   display: grid;
-  gap: 2rem;
-  padding: 2rem;
+  gap: 1rem;
   grid-template-columns: 1fr;
   grid-template-rows: repeat(3, 20rem);
+  margin: 1rem;
 }
 
 #square1,

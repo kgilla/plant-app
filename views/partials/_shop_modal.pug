@@ -1,0 +1,24 @@
+#shopModal.modal.fade(tabindex='-1', aria-labelledby='shopModal', aria-hidden='true')
+  .modal-dialog
+    .modal-content
+      .modal-header
+        h5#shopModalLabel.modal-title Checkout
+        button.close(type='button', data-dismiss='modal', aria-label='Close')
+          span(aria-hidden='true') ×
+      .modal-body
+        form(action="" method="post" class="modal-form")
+          div.modal-form-info
+            h6.heading= plant.name
+            h6.sub-heading#plant-price $#{plant.price}
+          div.form-group
+            label(for="amount") 
+            |  Quantity ( 
+            label.mt-3#plant-stock Stock: #{plant.stock})
+            select(name="amount" id="amount" class="form-control")
+              - var n = 1
+              while n != plant.stock + 1
+                option(value=n)= n
+                - n++
+          h6.small-heading.text-left.sub-total Sub Total
+          h5.heading.text-left#sub-total= "$" + plant.price
+          button(type="submit" class="btn btn-success btn-block") Buy

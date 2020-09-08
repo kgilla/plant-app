@@ -1,7 +1,8 @@
 extends layout
 
 block content
-
+  if success != ""
+    div.alert.alert-success= success
   div.container.plant-details-box
     figure(class="plant-detail-image")
       if plant.image
@@ -9,14 +10,25 @@ block content
       else
         img(src='/images/stock-plant.jpg')
     header.plant-detail-header
-      h1.main-title.mr-3= plant.name
-      a(href=plant.category.url class="link")= plant.category.name
+      div.header-top
+        h1.main-title.mr-3= plant.name
+        a(href=plant.category.url class="link")= plant.category.name
+      div.header-bottom
+        h2.heading $#{plant.price}
+        if plant.stock < 1
+          h2.small-heading.text-danger Out of stock
+        else
+          h2.small-heading.text-success In Stock
     main         
-      p(class="plant-description")= plant.description
-      p(class="plant-stock") $#{plant.price} (#{plant.stock} left!)
-    if currentUser
-      footer
+      p.content= plant.description
+    footer.detail-footer
+      if plant.stock > 0
+        button.btn.btn-success(type='button', data-toggle='modal', data-target='#shopModal') Buy
+      else
+        button.btn.btn-success.disabled Buy 
+      include partials/_shop_modal
+      if currentUser
         div(class="admin-buttons")
           a(href=plant.url+"/update" class="btn btn-primary") Edit Plant
           a(href=plant.url+"/delete" class="btn btn-warning") Delete Plant
-    
+  script(src="/javascripts/index.js")

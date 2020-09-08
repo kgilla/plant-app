@@ -86,6 +86,7 @@ exports.plant_detail = function (req, res) {
       res.render("plant_detail", {
         title: plant.name,
         plant: plant,
+        success: req.flash("success"),
       });
     });
 };
@@ -189,5 +190,25 @@ exports.plant_delete_post = function (req, res) {
       return next(err);
     }
     res.redirect("/plants");
+  });
+};
+
+exports.buy_plant = (req, res, next) => {
+  const { amount } = req.body;
+
+  Plant.findById(req.params.id).exec((err, plant) => {
+    if (err) {
+      return next(err);
+    }
+    const newStock = plant.stock - amount;
+    console.log(newStock);
+
+    Plant.findByIdAndUpdate(req.params.id, { stock: newStock }, {}, (err) => {
+      if (err) {
+        return next(err);
+      }
+      req.flash("success", "Thank you for your purchase");
+      res.redirect(plant.url);
+    });
   });
 };

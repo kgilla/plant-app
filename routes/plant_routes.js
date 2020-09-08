@@ -12,5 +12,6 @@ router.get("/:id/update", plant_controller.plant_update_get);
 router.post("/:id/update", upload, plant_controller.plant_update_post);
 router.get("/:id/delete", plant_controller.plant_delete_get);
 router.post("/:id/delete", plant_controller.plant_delete_post);
+router.post("/:id", plant_controller.buy_plant);
 
 module.exports = router;

@@ -21,6 +21,25 @@
   flex-direction: column;
 }
 
-.plant-description {
-  line-height: 2;
+.header-top {
+  display: flex;
+  align-items: center;
+}
+
+.header-bottom {
+  display: flex;
+  align-items: center;
+}
+
+.detail-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.admin-buttons {
+  max-width: 20rem;
+  display: flex;
+  justify-content: space-evenly;
+  margin: 1rem auto;
 }
