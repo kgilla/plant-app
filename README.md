@@ -1,6 +1,6 @@
 # Plantarama
 
-Plantarama is a website made based on the Node.JS curriculum of [The Odin Project](https://www.theodinproject.com/home). This website is primarily a visual focused database which also includes a small user model to autheticate and protect more destructive routes. There is also an option to "purchase" plants to depreciate stock levels.
+Plantarama is a website made based on the Node.JS curriculum of [The Odin Project](https://www.theodinproject.com/home). This website is primarily a visual focused database which also includes a small user model to autheticate and protect more destructive routes. There is also an option to "purchase" plants to depreciate stock levels. Images can be uploaded through an admin user.
 
 [Live Demo](https://plantarama.herokuapp.com/)
 
@@ -23,18 +23,17 @@ Plantarama utilizes conditional rendering to show or hide admin functions such a
 
 ### Home Page
 
-<img src="./public/images/screenshots/home-screenshot.png">
-<img src="./public/images/screenshots/home2-screenshot.png">
+<img src="public/images/screenshots/Screen Shot 2020-10-16 at 2.05.28 AM.png">
 
 ### Plant Index
 
-<img src="./public/images/screenshots/plant-index-screenshot.png">
+<img src="public/images/screenshots/Screen Shot 2020-10-16 at 2.06.04 AM.png">
+<img src="public/images/screenshots/Screen Shot 2020-10-16 at 2.06.42 AM.png">
 
 ### Plant Detail Page
 
-<img src="./public/images/screenshots/plant-detail-screenshot.png">
-<img src="./public/images/screenshots/plant-buy-screenshot.png">
-
+<img src="public/images/screenshots/Screen Shot 2020-10-16 at 2.06.25 AM.png">
+<img src="public/images/screenshots/Screen Shot 2020-10-16 at 2.06.32 AM.png">
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)
